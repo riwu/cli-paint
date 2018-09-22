@@ -1,6 +1,14 @@
 {
   "root": true,
   "extends": "airbnb",
+  "overrides": [
+    {
+      "files": ["**/*.test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "rules": {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-param-reassign": [
