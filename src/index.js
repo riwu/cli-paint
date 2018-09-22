@@ -1,6 +1,6 @@
 const Canvas = require('./models/Canvas');
-const View = require('./View');
-const Controller = require('./Controller');
+const View = require('./views');
+const Controller = require('./controllers');
 
 const canvas = new Canvas();
 const controller = new Controller(canvas);

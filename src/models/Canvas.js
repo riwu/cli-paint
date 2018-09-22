@@ -1,4 +1,4 @@
-const createArray = (width, height) => [...Array(Number(height))].map(() => Array(Number(width)));
+const createMatrix = require('../util/createMatrix');
 
 module.exports = class Canvas {
   constructor() {
@@ -14,7 +14,7 @@ module.exports = class Canvas {
   }
 
   initialise(width, height) {
-    this.matrix = createArray(width, height);
+    this.matrix = createMatrix(width, height);
     this.updateListeners(this.matrix);
   }
 
@@ -27,7 +27,7 @@ module.exports = class Canvas {
   fill(targetX, targetY, symbol) {
     const height = this.matrix.length;
     const width = this.matrix[0].length;
-    const visited = createArray(width, height);
+    const visited = createMatrix(width, height);
     const stack = [[targetX, targetY]];
     while (stack.length) {
       const [x, y] = stack.pop();

@@ -1,5 +1,5 @@
-const Line = require('./models/shapes/Line');
-const Rectangle = require('./models/shapes/Rectangle');
+const Line = require('../models/shapes/Line');
+const Rectangle = require('../models/shapes/Rectangle');
 
 const mapToNumber = args => args.map(arg => Number(arg));
 
