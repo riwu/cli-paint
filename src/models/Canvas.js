@@ -19,7 +19,10 @@ module.exports = class Canvas {
   }
 
   add(shape) {
-    shape.fill(this.matrix); // polymorphism if this is in Java
+    // polymorphism if this is in Java
+    shape.fill((x, y) => {
+      this.matrix[y][x] = true;
+    });
     this.updateListeners(this.matrix);
   }
 
