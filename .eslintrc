@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": "airbnb",
+  "rules": {
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-param-reassign": [
+      "error",
+      { "props": true, "ignorePropertyModificationsFor": ["matrix"] }
+    ],
+    "no-continue": 0,
+    "class-methods-use-this": 0,
+    "no-console": 0
+  }
+}
