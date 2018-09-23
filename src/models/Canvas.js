@@ -37,10 +37,29 @@ module.exports = class Canvas {
     }
   }
 
+  checkFillValid(x, y) {
+    if (x < 0 || y < 0) {
+      throw Error('Coordinates specified should be greater than 0');
+    }
+    if (y >= this.matrix.length || x >= this.matrix[y].length) {
+      throw Error(
+        `Coordinates specified lies outside the canvas with width ${
+          this.matrix[0].length
+        } and height ${this.matrix.length}`,
+      );
+    }
+  }
+
   add(shape) {
     this.checkInitialised();
+
+    const toFill = [];
     // polymorphism if this is in Java
     shape.fill((x, y) => {
+      this.checkFillValid(x, y);
+      toFill.push([x, y]); // avoid mutating matrix until all checkFillValid passed
+    });
+    toFill.forEach(([x, y]) => {
       this.matrix[y][x] = true;
     });
     this.updateListeners(this.matrix);
@@ -56,6 +75,7 @@ module.exports = class Canvas {
   fill(targetX, targetY, symbol) {
     this.checkInitialised();
     this.checkSymbolValid(symbol);
+    this.checkFillValid(targetX, targetY);
     const height = this.matrix.length;
     const width = this.matrix[0].length;
     const visited = createMatrix(width, height);

@@ -11,7 +11,7 @@ beforeEach(() => {
 });
 
 afterAll(() => {
-  view.close();
+  process.stdin.destroy();
 });
 
 test('should prompt for command', () => {

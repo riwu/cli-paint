@@ -46,7 +46,7 @@ test('should fail initialise if width or height is invalid', () => {
   expect(() => canvas.initialise(-1, 3)).toThrow('width should be larger than 0');
   expect(() => canvas.initialise(1, 0)).toThrow('height should be larger than 0');
   expect(() => canvas.initialise('2', 3)).toThrow('width should be an integer: 2');
-  expect(() => canvas.initialise(2, '3')).toThrow('height should be an integer: 3');
+  expect(() => canvas.initialise(2, 'x')).toThrow('height should be an integer: x');
 });
 
 test('should add correctly', () => {
@@ -104,9 +104,17 @@ test('should fail if add or fill before initialise', () => {
   expect(() => canvas.fill(1, 1, 'o')).toThrow('please create a canvas first with command C');
 });
 
-test('should fail if coordinate out of bounds', () => {
-  canvas.initialise(1, 1);
-  expect(() => canvas.add(new Line(0, 1, 0, 1))).toThrow(
-    'please create a canvas first with command C',
-  );
+test('should fail if drawing out of bounds', () => {
+  canvas.initialise(2, 2);
+
+  const outOfBounds = 'Coordinates specified lies outside the canvas with width 2 and height 2';
+  const greaterThan0 = 'Coordinates specified should be greater than 0';
+  expect(() => canvas.add(new Line(1, 1, 1, 2))).toThrow(outOfBounds);
+  expect(() => canvas.add(new Rectangle(0, 0, 2, 1))).toThrow(outOfBounds);
+  expect(() => canvas.add(new Line(1, -1, 1, 1))).toThrow(greaterThan0);
+  expect(() => canvas.add(new Rectangle(-1, 1, 1, 1))).toThrow(greaterThan0);
+  expect(() => canvas.fill(-1, 1, 'o')).toThrow(greaterThan0);
+  expect(() => canvas.fill(0, 2, 'o')).toThrow(outOfBounds);
+
+  expect(canvas.matrix).toEqual([[false, false], [false, false]]);
 });

@@ -1,4 +1,4 @@
-const { view, controller } = require('./index');
+const { controller } = require('./index');
 
 let output = '';
 beforeEach(() => {
@@ -10,7 +10,7 @@ beforeEach(() => {
 });
 
 afterAll(() => {
-  view.close();
+  process.stdin.destroy();
 });
 
 test('should produce correct output', () => {

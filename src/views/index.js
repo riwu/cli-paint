@@ -8,13 +8,13 @@ const VERTICAL_BOUND_CHARACTER = '|';
 
 module.exports = class View {
   constructor(controller) {
-    this.rl = readline.createInterface({
+    const rl = readline.createInterface({
       input: process.stdin,
     });
 
     const promptForCommand = () => process.stdout.write('enter command: ');
     promptForCommand();
-    this.rl.on('line', (input) => {
+    rl.on('line', (input) => {
       const inputArr = input.trim().split(' ');
       const command = inputArr[0];
       const args = inputArr.slice(1);
@@ -25,10 +25,6 @@ module.exports = class View {
       }
       promptForCommand();
     });
-  }
-
-  close() {
-    this.rl.close();
   }
 
   renderMatrix(matrix) {
