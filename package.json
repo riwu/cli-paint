@@ -1,8 +1,8 @@
 {
-  "name": "cli-drawer",
+  "name": "cli-paint",
   "private": true,
   "engines": {
-    "node": ">=8.6.0"
+    "node": ">=8.2.1"
   },
   "scripts": {
     "start": "node src",

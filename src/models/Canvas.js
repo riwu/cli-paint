@@ -33,11 +33,11 @@ module.exports = class Canvas {
 
   checkTargetValid(x, y) {
     if (x < 0 || y < 0) {
-      throw Error('Coordinates specified should be greater than 0');
+      throw Error('coordinates specified should be greater than 0');
     }
     if (y >= this.matrix.length || x >= this.matrix[y].length) {
       throw Error(
-        `Coordinates specified lies outside the canvas with width ${
+        `coordinates specified lies outside the canvas with width ${
           this.matrix[0].length
         } and height ${this.matrix.length}`,
       );
@@ -67,7 +67,7 @@ module.exports = class Canvas {
 
   checkTargetOccupied(x, y) {
     if (this.matrix[y][x] === true) {
-      throw Error('Target coordinate is occupied by a shape bounds');
+      throw Error('target coordinate is occupied by a shape bounds');
     }
   }
 

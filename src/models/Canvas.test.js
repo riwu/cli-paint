@@ -68,6 +68,26 @@ test('should add correctly', () => {
   testListenerCalled(canvas.matrix, 3);
 });
 
+test('should draw over fill', () => {
+  canvas.initialise(4, 4);
+  canvas.fill(3, 3, 'o');
+  canvas.add(new Rectangle(1, 1, 3, 3));
+  expect(canvas.matrix).toEqual([
+    ['o', 'o', 'o', 'o'],
+    ['o', true, true, true],
+    ['o', true, 'o', true],
+    ['o', true, true, true],
+  ]);
+
+  canvas.fill(0, 0, 'y');
+  expect(canvas.matrix).toEqual([
+    ['y', 'y', 'y', 'y'],
+    ['y', true, true, true],
+    ['y', true, 'o', true],
+    ['y', true, true, true],
+  ]);
+});
+
 test('should fill correctly', () => {
   canvas.initialise(4, 4);
   canvas.add(new Rectangle(0, 0, 2, 2));
@@ -142,7 +162,7 @@ test('should fail if fill symbol invalid', () => {
 test('should fail if fill target occupied', () => {
   canvas.initialise(4, 4);
   canvas.add(new Rectangle(0, 0, 1, 1));
-  expect(() => canvas.fill(1, 1, 'o')).toThrow('Target coordinate is occupied by a shape bounds');
+  expect(() => canvas.fill(1, 1, 'o')).toThrow('target coordinate is occupied by a shape bounds');
 });
 
 test('should fail if add or fill before initialise', () => {
@@ -155,8 +175,8 @@ test('should fail if add or fill before initialise', () => {
 test('should fail if drawing out of bounds', () => {
   canvas.initialise(2, 2);
 
-  const outOfBounds = 'Coordinates specified lies outside the canvas with width 2 and height 2';
-  const greaterThan0 = 'Coordinates specified should be greater than 0';
+  const outOfBounds = 'coordinates specified lies outside the canvas with width 2 and height 2';
+  const greaterThan0 = 'coordinates specified should be greater than 0';
   expect(() => canvas.add(new Line(1, 1, 1, 2))).toThrow(outOfBounds);
   expect(() => canvas.add(new Rectangle(0, 0, 2, 1))).toThrow(outOfBounds);
   expect(() => canvas.add(new Line(1, -1, 1, 1))).toThrow(greaterThan0);

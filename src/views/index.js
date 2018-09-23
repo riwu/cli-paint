@@ -6,6 +6,14 @@ const UNFILLED_CHARACTER = ' ';
 const HORIZONTAL_BOUND_CHARACTER = '-';
 const VERTICAL_BOUND_CHARACTER = '|';
 
+const VALID_COMMANDS = `
+  C w h             Creates a new canvas of width w and height h
+  L x1 y1 x2 y2     Creates a new line from (x1, y1) to (x2, y2)
+  R x1 y1 x2 y2     Creates a new rectangle with bounds (x1, y1, x2, y2)
+  B x y c           Fills the entire area connected to (x, y) with "color" c
+  Q                 Quits the program
+`;
+
 module.exports = class View {
   constructor(controller) {
     const rl = readline.createInterface({
@@ -22,6 +30,7 @@ module.exports = class View {
         controller.executeCommand(command, args);
       } catch (e) {
         process.stdout.write(`Error: ${e.message}${os.EOL}`);
+        process.stdout.write(`Valid commands:${VALID_COMMANDS}`);
       }
       promptForCommand();
     });

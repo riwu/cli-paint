@@ -27,13 +27,13 @@ module.exports = class Controller {
   checkCoordinatesAreInt(coordinates) {
     coordinates.forEach((v) => {
       if (!Number.isInteger(Number(v))) {
-        throw Error(`Coordinate specified is not an integer: ${v}`);
+        throw Error(`coordinate specified is not an integer: ${v}`);
       }
     });
   }
 
   executeCommand(command, args) {
-    switch (command) {
+    switch (command.toUpperCase()) {
       case 'C':
         this.checkArgsLength(args, 2);
         this.checkWidthAndHeightAreInt(args[0], args[1]);
@@ -61,7 +61,7 @@ module.exports = class Controller {
         process.exit();
         break;
       default:
-        throw Error(`Unknown command: ${command}`);
+        throw Error(`unknown command: ${command}`);
     }
   }
 };

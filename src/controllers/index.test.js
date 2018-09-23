@@ -29,13 +29,13 @@ test('should fail if width or height not integer', () => {
 
 test('should fail if coordinates not integer', () => {
   expect(() => controller.executeCommand('L', ['v', '1', '1', '2'])).toThrow(
-    'Coordinate specified is not an integer: v',
+    'coordinate specified is not an integer: v',
   );
   expect(() => controller.executeCommand('R', ['2', '1', '1', '2a'])).toThrow(
-    'Coordinate specified is not an integer: 2a',
+    'coordinate specified is not an integer: 2a',
   );
   expect(() => controller.executeCommand('B', ['2', 'b', 'a'])).toThrow(
-    'Coordinate specified is not an integer: b',
+    'coordinate specified is not an integer: b',
   );
 });
 
@@ -69,8 +69,14 @@ test('should quit', () => {
   expect(process.exit).toHaveBeenCalledWith();
 });
 
+test('should allow lowercase', () => {
+  controller.executeCommand('q', []);
+  expect(process.exit).toHaveBeenCalledTimes(1);
+  expect(process.exit).toHaveBeenCalledWith();
+});
+
 test('should error if invalid command', () => {
-  ['', ' Q', 'A', 'q', 'QQ'].forEach((command) => {
-    expect(() => controller.executeCommand(command, [])).toThrow(`Unknown command: ${command}`);
+  ['A', 'QQ'].forEach((command) => {
+    expect(() => controller.executeCommand(command, [])).toThrow(`unknown command: ${command}`);
   });
 });
