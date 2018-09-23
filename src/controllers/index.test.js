@@ -46,6 +46,7 @@ test('should fill symbol', () => {
 test('should quit', () => {
   controller.executeCommand('Q', []);
   expect(process.exit).toHaveBeenCalledTimes(1);
+  expect(process.exit).toHaveBeenCalledWith();
 });
 
 test('should error if invalid command', () => {

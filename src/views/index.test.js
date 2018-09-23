@@ -15,13 +15,13 @@ afterAll(() => {
 });
 
 test('should prompt for command', () => {
-  expect(output).toEqual('enter command: ');
+  expect(output).toBe('enter command: ');
 });
 
 describe('test rendering', () => {
   test('should render empty matrix', () => {
     view.renderMatrix([[false, false], [false, false], [false, false]]);
-    expect(output).toEqual(
+    expect(output).toBe(
       `enter command: ----
 |  |
 |  |
@@ -38,7 +38,7 @@ describe('test rendering', () => {
       [true, false, false, false, false],
       [true, false, false, false, false],
     ]);
-    expect(output).toEqual(
+    expect(output).toBe(
       `enter command: -------
 |     |
 |x    |
@@ -57,7 +57,7 @@ describe('test rendering', () => {
       [true, true, true, false, false],
       [false, false, false, false, false],
     ]);
-    expect(output).toEqual(
+    expect(output).toBe(
       `enter command: -------
 |     |
 |xxx  |
@@ -77,7 +77,7 @@ describe('test rendering', () => {
       [true, true, true, false, false],
       [false, true, false, false, false],
     ]);
-    expect(output).toEqual(
+    expect(output).toBe(
       `enter command: -------
 | x   |
 |xxx  |
@@ -96,7 +96,7 @@ describe('test rendering', () => {
       [true, 'y', true, 'o', 'o'],
       [true, true, true, 'o', 'o'],
     ]);
-    expect(output).toEqual(
+    expect(output).toBe(
       `enter command: -------
 |ooooo|
 |xxxoo|
