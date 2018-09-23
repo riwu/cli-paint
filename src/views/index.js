@@ -21,7 +21,7 @@ module.exports = class View {
       try {
         controller.executeCommand(command, args);
       } catch (e) {
-        process.stdout.write(e.message + os.EOL);
+        process.stdout.write(`Error: ${e.message}${os.EOL}`);
       }
       promptForCommand();
     });

@@ -10,7 +10,7 @@ module.exports = class Controller {
 
   checkArgsLength(args, len) {
     if (args.length !== len) {
-      throw Error(`Options specified should have a length of ${len}`);
+      throw Error(`options specified should have a length of ${len}`);
     }
   }
 

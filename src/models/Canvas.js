@@ -31,7 +31,14 @@ module.exports = class Canvas {
     this.updateListeners(this.matrix);
   }
 
+  checkInitialised() {
+    if (!this.matrix) {
+      throw Error('please create a canvas first with command C');
+    }
+  }
+
   add(shape) {
+    this.checkInitialised();
     // polymorphism if this is in Java
     shape.fill((x, y) => {
       this.matrix[y][x] = true;
@@ -39,8 +46,16 @@ module.exports = class Canvas {
     this.updateListeners(this.matrix);
   }
 
+  checkSymbolValid(symbol) {
+    if (symbol.length !== 1) {
+      throw Error(`colour specified is not single letter: ${symbol}`);
+    }
+  }
+
   // Depth-first search from (targetX, targetY)
   fill(targetX, targetY, symbol) {
+    this.checkInitialised();
+    this.checkSymbolValid(symbol);
     const height = this.matrix.length;
     const width = this.matrix[0].length;
     const visited = createMatrix(width, height);
