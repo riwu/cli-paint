@@ -42,11 +42,9 @@ test('should reset matrix on initialisation', () => {
   testListenerCalled(canvas.matrix, 3);
 });
 
-test('should fail initialise if width or height is invalid', () => {
+test('should fail initialise if width or height is <= 0', () => {
   expect(() => canvas.initialise(-1, 3)).toThrow('width should be larger than 0');
   expect(() => canvas.initialise(1, 0)).toThrow('height should be larger than 0');
-  expect(() => canvas.initialise('2', 3)).toThrow('width should be an integer: 2');
-  expect(() => canvas.initialise(2, 'x')).toThrow('height should be an integer: x');
 });
 
 test('should add correctly', () => {

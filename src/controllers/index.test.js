@@ -20,6 +20,25 @@ test('should fail if incorrect args length', () => {
   );
 });
 
+test('should fail if width or height not integer', () => {
+  expect(() => controller.executeCommand('C', ['v', '1'])).toThrow('width should be an integer: v');
+  expect(() => controller.executeCommand('C', ['1', '1o'])).toThrow(
+    'height should be an integer: 1o',
+  );
+});
+
+test('should fail if coordinates not integer', () => {
+  expect(() => controller.executeCommand('L', ['v', '1', '1', '2'])).toThrow(
+    'Coordinate specified is not an integer: v',
+  );
+  expect(() => controller.executeCommand('R', ['2', '1', '1', '2a'])).toThrow(
+    'Coordinate specified is not an integer: 2a',
+  );
+  expect(() => controller.executeCommand('B', ['2', 'b', 'a'])).toThrow(
+    'Coordinate specified is not an integer: b',
+  );
+});
+
 const testFnCallHelper = (command, commandArgs, functionName, count, ...fnArgs) => {
   controller.executeCommand(command, commandArgs);
   const { [functionName]: fn } = Canvas.mock.instances[Canvas.mock.instances.length - 1];

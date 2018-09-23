@@ -12,7 +12,6 @@ test('should error if not valid line', () => {
   expect(() => new Line(5, 1, 2, 3)).toThrow('x1 should not be larger than x2');
   expect(() => new Line(5, 5, 8, 3)).toThrow('y1 should not be larger than y2');
   expect(() => new Line(1, 2, 3, 4)).toThrow('either y1 and y2, or x1 and x2 should be the same');
-  expect(() => new Line('1', '2', '1', '5')).toThrow('Coordinate specified is not an integer: 1');
 });
 
 test('should fill matrix', () => {

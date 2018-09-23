@@ -10,10 +10,6 @@ test('should initialise correctly', () => {
 test('should error if not valid rectangle', () => {
   expect(() => new Rectangle(5, 1, 2, 3)).toThrow('x1 should not be larger than x2');
   expect(() => new Rectangle(5, 5, 8, 3)).toThrow('y1 should not be larger than y2');
-  expect(() => new Rectangle('1', '2', '4', '5')).toThrow(
-    'Coordinate specified is not an integer: 1',
-  );
-  expect(() => new Rectangle(1, 2, 4, 'x')).toThrow('Coordinate specified is not an integer: x');
 });
 
 test('should fill matrix', () => {

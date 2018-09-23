@@ -15,24 +15,47 @@ module.exports = class Controller {
     }
   }
 
+  checkWidthAndHeightAreInt(width, height) {
+    if (!Number.isInteger(Number(width))) {
+      throw Error(`width should be an integer: ${width}`);
+    }
+    if (!Number.isInteger(Number(height))) {
+      throw Error(`height should be an integer: ${height}`);
+    }
+  }
+
+  checkCoordinatesAreInt(coordinates) {
+    coordinates.forEach((v) => {
+      if (!Number.isInteger(Number(v))) {
+        throw Error(`Coordinate specified is not an integer: ${v}`);
+      }
+    });
+  }
+
   executeCommand(command, args) {
     switch (command) {
       case 'C':
         this.checkArgsLength(args, 2);
+        this.checkWidthAndHeightAreInt(args[0], args[1]);
         this.canvas.initialise(...mapToNumber(args));
         break;
       case 'L':
         this.checkArgsLength(args, 4);
+        this.checkCoordinatesAreInt(args);
         this.canvas.add(new Line(...mapToIndex(args)));
         break;
       case 'R':
         this.checkArgsLength(args, 4);
+        this.checkCoordinatesAreInt(args);
         this.canvas.add(new Rectangle(...mapToIndex(args)));
         break;
-      case 'B':
+      case 'B': {
         this.checkArgsLength(args, 3);
-        this.canvas.fill(...mapToIndex(args.slice(0, 2)), args[2]);
+        const coordinates = args.slice(0, 2);
+        this.checkCoordinatesAreInt(coordinates);
+        this.canvas.fill(...mapToIndex(coordinates), args[2]);
         break;
+      }
       case 'Q':
         this.checkArgsLength(args, 0);
         process.exit();

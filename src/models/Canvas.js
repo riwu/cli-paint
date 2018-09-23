@@ -14,12 +14,6 @@ module.exports = class Canvas {
   }
 
   checkValid(width, height) {
-    if (!Number.isInteger(width)) {
-      throw Error(`width should be an integer: ${width}`);
-    }
-    if (!Number.isInteger(height)) {
-      throw Error(`height should be an integer: ${height}`);
-    }
     if (width <= 0 || height <= 0) {
       throw Error(`${width <= 0 ? 'width' : 'height'} should be larger than 0`);
     }
