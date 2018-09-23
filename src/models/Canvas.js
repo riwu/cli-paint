@@ -31,7 +31,7 @@ module.exports = class Canvas {
     }
   }
 
-  checkFillValid(x, y) {
+  checkTargetValid(x, y) {
     if (x < 0 || y < 0) {
       throw Error('Coordinates specified should be greater than 0');
     }
@@ -50,7 +50,7 @@ module.exports = class Canvas {
     const toFill = [];
     // polymorphism if this is in Java
     shape.fill((x, y) => {
-      this.checkFillValid(x, y);
+      this.checkTargetValid(x, y);
       toFill.push([x, y]); // avoid mutating matrix until all checkFillValid passed
     });
     toFill.forEach(([x, y]) => {
@@ -61,7 +61,13 @@ module.exports = class Canvas {
 
   checkSymbolValid(symbol) {
     if (symbol.length !== 1) {
-      throw Error(`colour specified is not single letter: ${symbol}`);
+      throw Error(`colour specified (${symbol}) is not single letter`);
+    }
+  }
+
+  checkTargetOccupied(x, y) {
+    if (this.matrix[y][x] === true) {
+      throw Error('Target coordinate is occupied by a shape bounds');
     }
   }
 
@@ -69,7 +75,8 @@ module.exports = class Canvas {
   fill(targetX, targetY, symbol) {
     this.checkInitialised();
     this.checkSymbolValid(symbol);
-    this.checkFillValid(targetX, targetY);
+    this.checkTargetValid(targetX, targetY);
+    this.checkTargetOccupied(targetX, targetY);
     const height = this.matrix.length;
     const width = this.matrix[0].length;
     const visited = createMatrix(width, height);
@@ -79,7 +86,7 @@ module.exports = class Canvas {
       if (visited[y][x]) continue;
       visited[y][x] = true;
 
-      if (this.matrix[y][x]) continue; // skip if position not empty
+      if (this.matrix[y][x] === true) continue; // skip if position not empty
       this.matrix[y][x] = symbol;
 
       // add neighbours to stack

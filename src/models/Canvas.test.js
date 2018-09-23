@@ -90,9 +90,59 @@ test('should fill correctly', () => {
   testListenerCalled(canvas.matrix, 4);
 });
 
+test('should allow fill override', () => {
+  canvas.initialise(4, 4);
+  canvas.add(new Rectangle(0, 0, 2, 2));
+  canvas.fill(3, 3, 'o');
+  canvas.fill(3, 3, 'v');
+  expect(canvas.matrix).toEqual([
+    [true, true, true, 'v'],
+    [true, false, true, 'v'],
+    [true, true, true, 'v'],
+    ['v', 'v', 'v', 'v'],
+  ]);
+
+  canvas.fill(1, 1, 'z');
+  canvas.fill(1, 1, 'q');
+  expect(canvas.matrix).toEqual([
+    [true, true, true, 'v'],
+    [true, 'q', true, 'v'],
+    [true, true, true, 'v'],
+    ['v', 'v', 'v', 'v'],
+  ]);
+});
+
+test('should allow fill with x', () => {
+  canvas.initialise(5, 5);
+  canvas.add(new Rectangle(0, 0, 3, 3));
+  canvas.fill(1, 1, 'x');
+  expect(canvas.matrix).toEqual([
+    [true, true, true, true, false],
+    [true, 'x', 'x', true, false],
+    [true, 'x', 'x', true, false],
+    [true, true, true, true, false],
+    [false, false, false, false, false],
+  ]);
+
+  canvas.fill(1, 1, 'o');
+  expect(canvas.matrix).toEqual([
+    [true, true, true, true, false],
+    [true, 'o', 'o', true, false],
+    [true, 'o', 'o', true, false],
+    [true, true, true, true, false],
+    [false, false, false, false, false],
+  ]);
+});
+
 test('should fail if fill symbol invalid', () => {
   canvas.initialise(4, 4);
-  expect(() => canvas.fill(3, 3, 'oo')).toThrow('colour specified is not single letter: oo');
+  expect(() => canvas.fill(3, 3, 'oo')).toThrow('colour specified (oo) is not single letter');
+});
+
+test('should fail if fill target occupied', () => {
+  canvas.initialise(4, 4);
+  canvas.add(new Rectangle(0, 0, 1, 1));
+  expect(() => canvas.fill(1, 1, 'o')).toThrow('Target coordinate is occupied by a shape bounds');
 });
 
 test('should fail if add or fill before initialise', () => {
