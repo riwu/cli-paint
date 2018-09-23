@@ -8,21 +8,32 @@ module.exports = class Controller {
     this.canvas = canvas;
   }
 
+  checkArgsLength(args, len) {
+    if (args.length !== len) {
+      throw Error(`Options specified should have a length of ${len}`);
+    }
+  }
+
   executeCommand(command, args) {
     switch (command) {
       case 'C':
+        this.checkArgsLength(args, 2);
         this.canvas.initialise(...mapToNumber(args));
         break;
       case 'L':
+        this.checkArgsLength(args, 4);
         this.canvas.add(new Line(...mapToNumber(args)));
         break;
       case 'R':
+        this.checkArgsLength(args, 4);
         this.canvas.add(new Rectangle(...mapToNumber(args)));
         break;
       case 'B':
+        this.checkArgsLength(args, 3);
         this.canvas.fill(...mapToNumber(args.slice(0, 2)), args[2]);
         break;
       case 'Q':
+        this.checkArgsLength(args, 0);
         process.exit();
         break;
       default:

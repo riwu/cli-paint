@@ -3,14 +3,15 @@ const View = require('./index');
 let view;
 let output = '';
 beforeEach(() => {
-  console.log = jest.fn((...args) => {
-    output += `${(args || []).join(' ')}\n`;
-  });
   process.stdout.write = jest.fn((str) => {
     output += str;
   });
   output = '';
   view = new View();
+});
+
+afterAll(() => {
+  view.close();
 });
 
 test('should prompt for command', () => {

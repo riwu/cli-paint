@@ -13,7 +13,20 @@ module.exports = class Canvas {
     this.listeners.forEach(listener => listener.renderMatrix(this.matrix));
   }
 
+  checkValid(width, height) {
+    if (!Number.isInteger(width)) {
+      throw Error(`width should be an integer: ${width}`);
+    }
+    if (!Number.isInteger(height)) {
+      throw Error(`height should be an integer: ${height}`);
+    }
+    if (width <= 0 || height <= 0) {
+      throw Error(`${width <= 0 ? 'width' : 'height'} should be larger than 0`);
+    }
+  }
+
   initialise(width, height) {
+    this.checkValid(width, height);
     this.matrix = createMatrix(width, height);
     this.updateListeners(this.matrix);
   }
@@ -26,7 +39,7 @@ module.exports = class Canvas {
     this.updateListeners(this.matrix);
   }
 
-  // Depth-first search
+  // Depth-first search from (targetX, targetY)
   fill(targetX, targetY, symbol) {
     const height = this.matrix.length;
     const width = this.matrix[0].length;
@@ -37,9 +50,10 @@ module.exports = class Canvas {
       if (visited[y][x]) continue;
       visited[y][x] = true;
 
-      if (this.matrix[y][x]) continue;
+      if (this.matrix[y][x]) continue; // skip if position not empty
       this.matrix[y][x] = symbol;
 
+      // add neighbours to stack
       if (x > 0) stack.push([x - 1, y]);
       if (x < width - 1) stack.push([x + 1, y]);
       if (y > 0) stack.push([x, y - 1]);
