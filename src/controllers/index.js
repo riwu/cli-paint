@@ -2,6 +2,7 @@ const Line = require('../models/shapes/Line');
 const Rectangle = require('../models/shapes/Rectangle');
 
 const mapToNumber = args => args.map(arg => Number(arg));
+const mapToIndex = args => mapToNumber(args).map(arg => arg - 1); // array index starts at 0
 
 module.exports = class Controller {
   constructor(canvas) {
@@ -22,15 +23,15 @@ module.exports = class Controller {
         break;
       case 'L':
         this.checkArgsLength(args, 4);
-        this.canvas.add(new Line(...mapToNumber(args)));
+        this.canvas.add(new Line(...mapToIndex(args)));
         break;
       case 'R':
         this.checkArgsLength(args, 4);
-        this.canvas.add(new Rectangle(...mapToNumber(args)));
+        this.canvas.add(new Rectangle(...mapToIndex(args)));
         break;
       case 'B':
         this.checkArgsLength(args, 3);
-        this.canvas.fill(...mapToNumber(args.slice(0, 2)), args[2]);
+        this.canvas.fill(...mapToIndex(args.slice(0, 2)), args[2]);
         break;
       case 'Q':
         this.checkArgsLength(args, 0);

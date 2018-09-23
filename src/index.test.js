@@ -1,4 +1,4 @@
-const { controller } = require('./index');
+const { view, controller } = require('./index');
 
 let output = '';
 beforeEach(() => {
@@ -7,6 +7,10 @@ beforeEach(() => {
     output += str;
   });
   output = '';
+});
+
+afterAll(() => {
+  view.close();
 });
 
 test('should produce correct output', () => {
@@ -20,7 +24,7 @@ test('should produce correct output', () => {
 -------
 `);
   output = '';
-  controller.executeCommand('L', ['1', '1', '1', '4']);
+  controller.executeCommand('L', ['2', '2', '2', '5']);
   expect(output).toBe(`-------
 |     |
 | x   |
@@ -30,7 +34,7 @@ test('should produce correct output', () => {
 -------
 `);
   output = '';
-  controller.executeCommand('R', ['0', '0', '2', '2']);
+  controller.executeCommand('R', ['1', '1', '3', '3']);
   expect(output).toBe(`-------
 |xxx  |
 |xxx  |
@@ -40,7 +44,7 @@ test('should produce correct output', () => {
 -------
 `);
   output = '';
-  controller.executeCommand('B', ['3', '3', 'o']);
+  controller.executeCommand('B', ['4', '4', 'o']);
   expect(output).toBe(`-------
 |xxxoo|
 |xxxoo|

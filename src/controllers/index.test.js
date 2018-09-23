@@ -33,15 +33,15 @@ test('should allow multiple initialisation', () => {
 });
 
 test('should add line', () => {
-  testFnCallHelper('L', ['1', '2', '1', '3'], 'add', 1, new Line(1, 2, 1, 3));
+  testFnCallHelper('L', ['2', '3', '2', '4'], 'add', 1, new Line(1, 2, 1, 3));
 });
 
 test('should add rectangle', () => {
-  testFnCallHelper('R', ['1', '2', '5', '7'], 'add', 1, new Rectangle(1, 2, 5, 7));
+  testFnCallHelper('R', ['2', '3', '6', '8'], 'add', 1, new Rectangle(1, 2, 5, 7));
 });
 
 test('should fill symbol', () => {
-  testFnCallHelper('B', ['1', '2', 'o'], 'fill', 1, 1, 2, 'o');
+  testFnCallHelper('B', ['2', '3', 'o'], 'fill', 1, 1, 2, 'o');
 });
 
 test('should quit', () => {
