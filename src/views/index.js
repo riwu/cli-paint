@@ -14,10 +14,14 @@ module.exports = class View {
     const promptForCommand = () => process.stdout.write('enter command: ');
     promptForCommand();
     rl.on('line', (input) => {
-      const inputArr = input.split(' ');
+      const inputArr = input.trim().split(' ');
       const command = inputArr[0];
       const args = inputArr.slice(1);
-      controller.executeCommand(command, args);
+      try {
+        controller.executeCommand(command, args);
+      } catch (e) {
+        console.log(e.message);
+      }
       promptForCommand();
     });
   }

@@ -8,6 +8,11 @@ module.exports = class Rectangle {
   }
 
   checkValid() {
+    [this.x1, this.y1, this.x2, this.y2].forEach((v) => {
+      if (!Number.isInteger(v)) {
+        throw Error(`Coordinate specified is not an integer: ${v}`);
+      }
+    });
     if (this.x1 > this.x2 || this.y1 > this.y2) {
       const axis = this.x1 > this.x2 ? 'x' : 'y';
       throw Error(`${axis}1 should not be larger than ${axis}2`);

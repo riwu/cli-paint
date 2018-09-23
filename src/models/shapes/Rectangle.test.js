@@ -7,9 +7,12 @@ test('should initialise correctly', () => {
   expect([rect.x1, rect.y1, rect.x2, rect.y2]).toEqual(coordinates);
 });
 
-test('should error if not rectangle', () => {
+test('should error if not valid rectangle', () => {
   expect(() => new Rectangle(5, 1, 2, 3)).toThrow('x1 should not be larger than x2');
   expect(() => new Rectangle(5, 5, 8, 3)).toThrow('y1 should not be larger than y2');
+  expect(() => new Rectangle('1', '2', '4', '5')).toThrow(
+    'Coordinate specified is not an integer: 1',
+  );
 });
 
 test('should fill matrix', () => {
